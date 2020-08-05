@@ -36,3 +36,6 @@ add_example(data_source_monitored_item monitored_item/data_source_monitored_item
 
 add_example(data_source_historic_access historic_access/data_source_historic_access.c
 			${UA_NODESET_ROBOT_MODEL_SOURCES})
+			
+add_example(data_source_alarm_condition alarm_condition/data_source_alarm_condition.c
+			${UA_NODESET_ROBOT_MODEL_SOURCES})
