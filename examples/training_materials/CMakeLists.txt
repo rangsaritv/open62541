@@ -33,3 +33,6 @@ add_example(random_function data_source/random_function.c
 
 add_example(data_source_monitored_item monitored_item/data_source_monitored_item.c
 			${UA_NODESET_ROBOT_MODEL_SOURCES})
+
+add_example(data_source_historic_access historic_access/data_source_historic_access.c
+			${UA_NODESET_ROBOT_MODEL_SOURCES})
