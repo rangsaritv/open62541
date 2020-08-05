@@ -45,3 +45,5 @@ add_example(data_source_method method/data_source_method.c
 			
 add_example(robot_example robot_model/robot_example.c
 			${UA_NODESET_ROBOT_MODEL_SOURCES})
+			
+add_example(modelling_example modelling/modelling_example.c)
