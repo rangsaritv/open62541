@@ -6,9 +6,7 @@
 # Custom XML      #
 ###################
 
-set(FILE_CSV_DIRPREFIX ${PROJECT_SOURCE_DIR}/training_materials/random_function)
-set(FILE_BSD_DIRPREFIX ${PROJECT_SOURCE_DIR}/training_materials/random_function)
-set(FILE_NS_DIRPREFIX ${PROJECT_SOURCE_DIR}/training_materials/random_function)
+set(FILE_NS_DIRPREFIX ${PROJECT_SOURCE_DIR}/training_materials/data_source)
 
 if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # needed or cmake doesn't recognize dependencies of generated files
@@ -30,6 +28,8 @@ else()
     )
 endif()
 
-add_example(random_function random_function.c
+add_example(random_function data_source/random_function.c
             ${UA_NODESET_ROBOT_MODEL_SOURCES})
 
+add_example(data_source_monitored_item monitored_item/data_source_monitored_item.c
+			${UA_NODESET_ROBOT_MODEL_SOURCES})
