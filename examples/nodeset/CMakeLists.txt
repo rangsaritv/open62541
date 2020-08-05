@@ -107,28 +107,3 @@ if(UA_NAMESPACE_ZERO STREQUAL "FULL")
 
 endif()
 
-# POWERLINK requires the full ns0 as basis
-
-if(UA_NAMESPACE_ZERO STREQUAL "FULL")
-
-    # generate powerlink namespace which is using DI
-    ua_generate_nodeset_and_datatypes(
-        NAME "powerlink"
-        FILE_CSV "${FILE_CSV_DIRPREFIX}/POWERLINK/Opc.Ua.POWERLINK.NodeIds.csv"
-        FILE_BSD "${FILE_BSD_POWERLINK_DIRPREFIX}/Opc.Ua.POWERLINK.NodeSet2.bsd"
-        NAMESPACE_IDX 3
-        FILE_NS "${FILE_NS_DIRPREFIX}/POWERLINK/Opc.Ua.POWERLINK.NodeSet2.xml"
-        # POWERLINK depends on the di nodeset, which must be generated before
-        DEPENDS "di"
-        INTERNAL
-    )
-
-    add_example(server_nodeset_powerlink server_nodeset_powerlink.c
-                ${UA_NODESET_DI_SOURCES}
-                ${UA_NODESET_POWERLINK_SOURCES}
-                ${UA_TYPES_DI_SOURCES}
-                ${UA_TYPES_POWERLINK_SOURCES})
-    add_dependencies(server_nodeset_powerlink open62541-generator-ns-powerlink)
-    
-
-endif()

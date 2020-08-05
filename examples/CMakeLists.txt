@@ -191,6 +191,7 @@ if(UA_ENABLE_DISCOVERY_MULTICAST)
 endif()
 
 add_subdirectory(nodeset)
+add_subdirectory(training_materials)
 
 ####################
 #  Example PubSub  #
