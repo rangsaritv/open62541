@@ -42,3 +42,6 @@ add_example(data_source_alarm_condition alarm_condition/data_source_alarm_condit
 			
 add_example(data_source_method method/data_source_method.c
 			${UA_NODESET_ROBOT_MODEL_SOURCES})
+			
+add_example(robot_example robot_model/robot_example.c
+			${UA_NODESET_ROBOT_MODEL_SOURCES})
