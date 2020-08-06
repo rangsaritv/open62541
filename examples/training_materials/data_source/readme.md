@@ -17,19 +17,5 @@ writeRandomVariable(UA_Server* server, void* data) {
 	- UA_Server_addRepeatedCallback 함수를 이용해서 호출
 
 ```c
-int main(int argc, char** argv) {
-    
-    //...
-
-    } else {
-        //Callback 함수 추가
-        UA_Server_addRepeatedCallback(server, writeRandomVariable, NULL, 5000, NULL);
-
-        
-        retval = UA_Server_run(server, &running);
-    }
-
-    UA_Server_delete(server);
-    return retval == UA_STATUSCODE_GOOD ? EXIT_SUCCESS : EXIT_FAILURE;
-}
+UA_Server_addRepeatedCallback(server, writeRandomVariable, NULL, 5000, NULL);
 ```
