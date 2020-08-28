@@ -73,6 +73,11 @@ addConditionSourceObject(UA_Server* server) {
         UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
             "creating Condition Source failed. StatusCode %s", UA_StatusCode_name(retval));
     }
+	retval = UA_Server_addReference(server, UA_NODEID_NUMERIC(2, 5004),//Robot1 Instance
+        UA_NODEID_NUMERIC(0, UA_NS0ID_HASNOTIFIER),
+        UA_EXPANDEDNODEID_NUMERIC(conditionSource.namespaceIndex,
+            conditionSource.identifier.numeric),
+        UA_TRUE);
 
     return retval;
 }

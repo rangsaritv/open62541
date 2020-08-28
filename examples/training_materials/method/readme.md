@@ -117,6 +117,15 @@ callback.onWrite = afterWriteCallbackAngleNode;
     }
 */
 ```
+- ConditionSourceObject와 Robot1 Instance 간 Reference 생성
+    - addConditionSourceObject 맨 아래 return 위에 추가
+```c
+retval = UA_Server_addReference(server, UA_NODEID_NUMERIC(2, 5004),//Robot1 Instance
+        UA_NODEID_NUMERIC(0, UA_NS0ID_HASNOTIFIER),
+        UA_EXPANDEDNODEID_NUMERIC(conditionSource.namespaceIndex,
+            conditionSource.identifier.numeric),
+        UA_TRUE);
+```
 - Main 함수 설정
     - UA_Server_addRepeatedCallback 코드 제거
 ```c
