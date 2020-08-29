@@ -125,7 +125,6 @@ callback.onWrite = afterWriteCallbackAngleNode;
 ```
 - Callback 제거 함수 설정
     - afterWriteCallbackAngle 함수 내부에 있는 angle 값 300 초과 조건에 입력
-    - onOffMethodCallback 함수 내부에 있는 else 조건에 입력
 ```c
 UA_Server_removeCallback(server, callbackId);
 ```
