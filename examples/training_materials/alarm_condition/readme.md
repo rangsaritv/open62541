@@ -230,15 +230,6 @@ afterWriteCallbackAngleNode(UA_Server* server,
                 UA_StatusCode_name(retval));
             return;
         }
-
-        retval = UA_Server_triggerConditionEvent(server, angleConditionInstance,
-            conditionSource, NULL);
-        if (retval != UA_STATUSCODE_GOOD) {
-            UA_LOG_WARNING(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                "Triggering condition event failed. StatusCode %s",
-                UA_StatusCode_name(retval));
-            return;
-        }
     }
 }
 ```
