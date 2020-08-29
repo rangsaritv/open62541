@@ -24,7 +24,7 @@ config->historyDatabase = UA_HistoryDatabase_default(gathering);
 UA_NodeId historicNodeId = UA_NODEID_NUMERIC(2, 6010);
 ```
 - Historic Node 설정
-    - Main 함수 else 구문 안에 추가
+    - Main 함수 else 구문 시작 부분에 추가
 ```c
 /************* Historic Access ***************/
 UA_HistorizingNodeIdSettings setting;
