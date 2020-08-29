@@ -98,7 +98,7 @@ addRobotStatusMethod(UA_Server* server) {
 ```
 - SetUpEnvironment 함수 수정
     - Angle Node 변수 제거
-    - addRobotStatusMethod 함수 호출
+    - 마지막 return 전에 addRobotStatusMethod 함수 호출
     - afterWriteCallbackAngleNode 호출 코드 제거
 ```c
 //UA_NodeId AngleNode = UA_NODEID_NUMERIC(2, 6010);
@@ -117,15 +117,7 @@ callback.onWrite = afterWriteCallbackAngleNode;
     }
 */
 ```
-- ConditionSourceObject와 Robot1 Instance 간 Reference 생성
-    - addConditionSourceObject 맨 아래 return 위에 추가
-```c
-retval = UA_Server_addReference(server, UA_NODEID_NUMERIC(2, 5004),//Robot1 Instance
-        UA_NODEID_NUMERIC(0, UA_NS0ID_HASNOTIFIER),
-        UA_EXPANDEDNODEID_NUMERIC(conditionSource.namespaceIndex,
-            conditionSource.identifier.numeric),
-        UA_TRUE);
-```
+
 - Main 함수 설정
     - UA_Server_addRepeatedCallback 코드 제거
 ```c
