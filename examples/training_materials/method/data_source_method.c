@@ -348,7 +348,7 @@ static UA_StatusCode
 setUpEnvironment(UA_Server* server) {
 
     //UA_ValueCallback callback;
-    callback.onRead = NULL;
+    //callback.onRead = NULL;
 
     UA_StatusCode retval = addAngleCondition(server);
     if (retval != UA_STATUSCODE_GOOD) {
