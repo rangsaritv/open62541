@@ -30,7 +30,7 @@ static void
 writeRandomVariable(UA_Server* server, void* data) {
     UA_NodeId myIntegerNodeId = UA_NODEID_NUMERIC(2, 6008);
 
-    UA_Int32 myInteger = UA_UInt32_random() % 360;  // 0 ~ 359 사이 랜덤 값 생성
+    UA_Int32 myInteger = (UA_Int32)(UA_UInt32_random() % 360);  // 0 ~ 359 사이 랜덤 값 생성
     UA_Variant myVar;
     UA_Variant_init(&myVar);
     UA_Variant_setScalar(&myVar, &myInteger, &UA_TYPES[UA_TYPES_INT32]);
@@ -174,7 +174,7 @@ afterWriteCallbackAngleNode(UA_Server* server,
     UA_StatusCode retval = UA_Server_writeObjectProperty_scalar(server, angleConditionInstance, UA_QUALIFIEDNAME(0, "Time"),
         &data->serverTimestamp, &UA_TYPES[UA_TYPES_DATETIME]);
     UA_Variant value;
-    UA_Boolean idValue = false;
+    //UA_Boolean idValue = false;
 
     if (*(UA_Int32*)(data->value.data) > 300) {
 

@@ -261,6 +261,7 @@ afterWriteCallbackAngleNode(UA_Server* server,
         }
     }
 }
+static UA_StatusCode
 onOffMethodCallback(UA_Server* server,
     const UA_NodeId* sessionId, void* sessionHandle,
     const UA_NodeId* methodId, void* methodContext,
