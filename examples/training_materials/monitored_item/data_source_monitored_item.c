@@ -21,7 +21,7 @@ static void
 writeRandomVariable(UA_Server* server, void* data) {
     UA_NodeId myIntegerNodeId = UA_NODEID_NUMERIC(2, 6010);
     /* Write a different integer value */
-    UA_Int32 myInteger = UA_UInt32_random() % 360;
+    UA_Int32 myInteger = (UA_Int32)(UA_UInt32_random() % 360);
     UA_Variant myVar;
     UA_Variant_init(&myVar);
     UA_Variant_setScalar(&myVar, &myInteger, &UA_TYPES[UA_TYPES_INT32]);

@@ -347,7 +347,7 @@ addRobotStatusMethod(UA_Server* server) {
 static UA_StatusCode
 setUpEnvironment(UA_Server* server) {
 
-    UA_ValueCallback callback;
+    //UA_ValueCallback callback;
     callback.onRead = NULL;
 
     UA_StatusCode retval = addAngleCondition(server);
