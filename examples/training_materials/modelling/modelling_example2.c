@@ -74,7 +74,7 @@ int main(void) {
     UA_Server_addObjectTypeNode(server, UA_NODEID_NUMERIC(1, 20000),
         UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE),
         UA_NODEID_NUMERIC(0, UA_NS0ID_HASSUBTYPE),
-        UA_QUALIFIEDNAME(1, "SnsorType"),
+        UA_QUALIFIEDNAME(1, "SensorType"),
         otAttr, NULL, NULL);
 
     vAttr = UA_VariableAttributes_default;
@@ -150,6 +150,16 @@ int main(void) {
     UA_Server_addReference(server, UA_NODEID_NUMERIC(1, 30002),
     UA_NODEID_NUMERIC(0, UA_NS0ID_HASMODELLINGRULE),
     UA_EXPANDEDNODEID_NUMERIC(0, UA_NS0ID_MODELLINGRULE_MANDATORY), true);
+//////////////////////////////////////
+    oAttr = UA_ObjectAttributes_default;
+    oAttr.description = UA_LOCALIZEDTEXT("en_US", "SpeedSensor");
+    oAttr.displayName = UA_LOCALIZEDTEXT("en_US", "SpeedSensor");
+    UA_Server_addObjectNode(server, UA_NODEID_NUMERIC(1, 40001),
+        UA_NODEID_NUMERIC(1, 30000),
+        UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
+        UA_QUALIFIEDNAME(1, "SpeedSensor"),
+        UA_NODEID_NUMERIC(1, 20000),
+        oAttr, NULL, NULL);
 
     oAttr = UA_ObjectAttributes_default;
     oAttr.description = UA_LOCALIZEDTEXT("en_US", "Robot");
