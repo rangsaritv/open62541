@@ -7,10 +7,38 @@
 
 #include "open62541/namespace_robot_model_generated.h"
 
+#include <open62541/client_subscriptions.h>
+
+//historic library
+#include <open62541/plugin/historydata/history_data_backend_memory.h>
+#include <open62541/plugin/historydata/history_data_gathering_default.h>
+#include <open62541/plugin/historydata/history_database_default.h>
+#include <open62541/plugin/historydatabase.h>
+
 #include <signal.h>
 #include <stdlib.h>
 
 UA_Boolean running = true;
+
+static void
+dataChangeNotificationCallback(UA_Server* server, UA_UInt32 monitoredItemId,
+    void* monitoredItemContext, const UA_NodeId* nodeId,
+    void* nodeContext, UA_UInt32 attributeId,
+    const UA_DataValue* value) {
+    UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
+        "Received Notification");
+}
+
+static void
+addMonitoredItem(UA_Server* server) {
+    UA_NodeId MonitoredItemNodeId = UA_NODEID_NUMERIC(2, 6007);
+    UA_MonitoredItemCreateRequest monRequest =
+        UA_MonitoredItemCreateRequest_default(MonitoredItemNodeId);
+    monRequest.requestedParameters.samplingInterval = 3000.0; /*
+    1 s interval */
+    UA_Server_createDataChangeMonitoredItem(server, UA_TIMESTAMPSTORETURN_SOURCE,
+        monRequest, NULL, dataChangeNotificationCallback);
+}
 
 static void stopHandler(int sign) {
     UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c");
@@ -33,9 +61,26 @@ int main(int argc, char** argv) {
     signal(SIGTERM, stopHandler);
     
     UA_Server *server = UA_Server_new();
-    UA_ServerConfig_setDefault(UA_Server_getConfig(server));
+    //UA_ServerConfig_setDefault(UA_Server_getConfig(server));
+    UA_ServerConfig* config = UA_Server_getConfig(server);
+    UA_ServerConfig_setDefault(config);
 
+    UA_HistoryDataGathering gathering = UA_HistoryDataGathering_Default(1);
+    config->historyDatabase = UA_HistoryDatabase_default(gathering);
+    UA_NodeId historicNodeId = UA_NODEID_NUMERIC(2, 6007);
+
+    /************* Historic Access ***************/
+    UA_HistorizingNodeIdSettings setting;
+    
+    setting.historizingBackend = UA_HistoryDataBackend_Memory(3, 100);
+    setting.maxHistoryDataResponseSize = 100;
+    setting.historizingUpdateStrategy = UA_HISTORIZINGUPDATESTRATEGY_VALUESET;
+    
     UA_StatusCode retval;
+    retval = gathering.registerNodeId(server, gathering.context, &historicNodeId, setting);
+    UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "registerNodeId %s", UA_StatusCode_name(retval));
+
+
     /* create nodes from nodeset */
     if(namespace_robot_model_generated(server) != UA_STATUSCODE_GOOD) {
         UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "Could not add the example nodeset. "
@@ -44,6 +89,8 @@ int main(int argc, char** argv) {
     } else {
 
         UA_Server_addRepeatedCallback(server, writeRandomVariable, NULL, 5000, NULL);
+        
+        addMonitoredItem(server);
 
         retval = UA_Server_run(server, &running);
     }
