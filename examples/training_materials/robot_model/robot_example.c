@@ -17,6 +17,17 @@ static void stopHandler(int sign) {
     running = false;
 }
 
+static void
+writeRandomVariable(UA_Server* server, void* data) {
+    UA_NodeId myIntegerNodeId = UA_NODEID_NUMERIC(2, 6007);
+    /* Write a different integer value */
+    UA_Int32 myInteger = (UA_Int32) UA_UInt32_random() % 360;
+    UA_Variant myVar;
+    UA_Variant_init(&myVar);
+    UA_Variant_setScalar(&myVar, &myInteger, &UA_TYPES[UA_TYPES_INT32]);
+    UA_Server_writeValue(server, myIntegerNodeId, myVar);
+}
+
 int main(int argc, char** argv) {
     signal(SIGINT, stopHandler);
     signal(SIGTERM, stopHandler);
@@ -32,7 +43,8 @@ int main(int argc, char** argv) {
         retval = UA_STATUSCODE_BADUNEXPECTEDERROR;
     } else {
 
-        
+        UA_Server_addRepeatedCallback(server, writeRandomVariable, NULL, 5000, NULL);
+
         retval = UA_Server_run(server, &running);
     }
 
