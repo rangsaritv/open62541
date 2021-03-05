@@ -18,7 +18,8 @@ if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     ua_generate_nodeset_and_datatypes(
         NAME "robot_model"
         FILE_NS "${FILE_NS_DIRPREFIX}/robot_model.xml"
-        DEPENDS "${CMAKE_SOURCE_DIR}/tools/schema/Opc.Ua.NodeSet2.Reduced.xml"
+        #DEPENDS "${CMAKE_SOURCE_DIR}/tools/schema/Opc.Ua.NodeSet2.Reduced.xml"
+        DEPENDS "${CMAKE_SOURCE_DIR}/deps/ua-nodeset/Schema/Opc.Ua.NodeSet2.xml"
     )
 else()
     # standalone examples build expects already installed Opc.Ua.NodeSet2.Reduced.xml
